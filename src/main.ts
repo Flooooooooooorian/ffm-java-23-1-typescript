@@ -27,9 +27,9 @@ function functionName(value: string): string {
 
 console.log(functionName("test"))
 
-let mitarbeiter: { name: string, lastName: string } = {
+let mitarbeiter: { name: string, lastName: string | undefined } = {
     name: "Florian",
-    lastName: "Weber"
+    lastName: undefined
 }
 
 console.log(mitarbeiter)
@@ -86,7 +86,9 @@ console.log(array)
 
 console.log("===================")
 
-const newArray = array.map((element) => {return element.length})
+const newArray = array.map((element) => {
+    return element.length
+})
 
 console.log(array)
 console.log(newArray)
@@ -99,3 +101,72 @@ console.log(filteredArray)
 
 const a = null;
 const b = undefined;
+
+
+console.log("============================")
+
+let zahlen: number[] = [1, 7, 11, 3]
+
+let doppelt = zahlen.map((element) => element * 2)
+
+console.log(zahlen)
+console.log(doppelt)
+
+const wörter: string[] = ["Hallo!", "Test", "Ich", "Du", "Currywurst"]
+
+const longWords = wörter.filter((element) => element.length > 5)
+
+console.log(longWords)
+
+const resultReduce = zahlen.reduce((previousValue, currentValue) => previousValue + currentValue)
+
+console.log(resultReduce)
+
+const anyBiggerThan10 = zahlen.some((element) => element > 10)
+
+console.log(anyBiggerThan10)
+
+
+type Grade = 1 | 2 | 3 | 4 | 5 | 6 | "A" | "B" | "C" | "D" | "E" | "F" | undefined
+
+type Student = {
+    firstName: string,
+    lastName: string,
+    age: number,
+    grades: Grade[]
+}
+
+function printStudent1(student: Student) {
+    console.log(student.firstName + " " + student.lastName + " (" + student.age + ")")
+    console.log("==============================")
+
+    const newGrades = student.grades.map(grade => {
+        if (grade === undefined) {
+            return "*"
+        }
+        else {
+            return grade
+        }
+    })
+
+    console.log("Noten: " + newGrades)
+}
+
+function printStudents(students: Student[]) {
+    for (let i = 0; i < students.length; i++) {
+        printStudent1(students[i])
+    }
+}
+
+const s1: Student = {
+    firstName: "Max",
+    lastName: "Mustermann",
+    age: 25,
+    grades: [1, 5, 6, "A", "F", undefined, "D"]
+}
+
+const students: Student[] = [s1, s1, s1]
+
+//printStudent(s1)
+//printStudent1(s1)
+printStudents(students)
